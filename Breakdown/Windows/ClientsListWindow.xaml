@@ -1,0 +1,97 @@
+﻿<Window x:Class="Breakdown.Windows.ClientsListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Breakdown.Windows"
+        mc:Ignorable="d"
+        FontFamily="Tw Cen MT"
+        Title="Поломка" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Поиск"/>
+            <TextBox x:Name="tbSearch" Grid.Row="1" TextChanged="tbSearch_TextChanged"/>
+
+            <Label Content="Пол" Grid.Column="1"/>
+            <ComboBox x:Name="cbGender" Grid.Column="1" Grid.Row="1"
+                      ItemsSource="{Binding Genders}" SelectedIndex="0"
+                      SelectionChanged="cbGender_SelectionChanged">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFFFFFE1" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Content="Сортировка" Grid.Column="2"/>
+            <ComboBox x:Name="cbSorting" Grid.Column="2" Grid.Row="1"
+                      ItemsSource="{Binding Sortings.Keys}" SelectedIndex="0"
+                      SelectionChanged="cbSorting_SelectionChanged"/>
+        </Grid>
+
+        <ListView x:Name="lvClients" Grid.Row="1" ItemsSource="{Binding Clients}"
+                  VerticalContentAlignment="Stretch"
+                  MouseDoubleClick="lvClients_MouseDoubleClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Width="80" Height="60">
+                            <Image.Source>
+                                <Binding Path="Photo">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>/Resources/default_photo.png</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnNewClient" Content="Новый клиент" Grid.ColumnSpan="3"
+                HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+                <TextBlock Text="&lt;" PreviewMouseDown="Paginator" Style="{DynamicResource Paginator}"/>
+                <StackPanel x:Name="spPages" Orientation="Horizontal"/>
+                <TextBlock Text="&gt;" PreviewMouseDown="Paginator" Style="{DynamicResource Paginator}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\service_logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -44,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
@@ -117,14 +121,14 @@
     <Compile Include="DB\Tag.cs">
       <DependentUpon>BreakdownModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Windows\BreakdownWindow.xaml.cs">
-      <DependentUpon>BreakdownWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\BreakdownWindow.xaml">
+    <Compile Include="Windows\ClientsListWindow.xaml.cs">
+      <DependentUpon>ClientsListWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Windows\ClientsListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,6 +178,8 @@
       <DependentUpon>BreakdownModel.edmx</DependentUpon>
       <LastGenOutput>BreakdownModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\default_photo.png" />
+    <Resource Include="Resources\service_logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
