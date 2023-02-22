@@ -23,6 +23,7 @@ namespace Breakdown.Windows
     {
         private const int ITEMSONPAGE = 10;
         private int _page = 0;
+        private int _pagesCount => Clients.Count / ITEMSONPAGE + (Clients.Count % ITEMSONPAGE != 0 ? 1 : 0);
 
         private List<Client> _clients;
         public List<Client> Clients { get; set; }
@@ -63,7 +64,11 @@ namespace Breakdown.Windows
 
         private void lvClients_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+            var client = lvClients.SelectedItem as Client;
+            if (client != null)
+                new ClientWindow(client).ShowDialog();
+
+            lvClients.SelectedIndex = -1;
         }
 
         private void ApplyFilters(bool isStartFilter = true)
@@ -111,11 +116,10 @@ namespace Breakdown.Windows
         private void Paginator(object sender, MouseButtonEventArgs e)
         {
             var content = (sender as TextBlock).Text;
-            var pagesCount = Clients.Count / ITEMSONPAGE + (Clients.Count % ITEMSONPAGE != 0 ? 1 : 0);
 
             if (content.Contains("<") && _page > 0)
                 _page--;
-            else if (content.Contains(">") && _page < pagesCount - 1)
+            else if (content.Contains(">") && _page < _pagesCount - 1)
                 _page++;
             else if (int.TryParse(content, out int pageNumber))
                 _page = pageNumber - 1;
@@ -126,9 +130,8 @@ namespace Breakdown.Windows
         public void GeneratePages()
         {
             spPages.Children.Clear();
-            var pagesCount = Clients.Count / ITEMSONPAGE + (Clients.Count % ITEMSONPAGE != 0 ? 1 : 0);
 
-            for (int i = 0; i < pagesCount; i++)
+            for (int i = 0; i < _pagesCount; i++)
             {
                 spPages.Children.Add(new TextBlock
                 {

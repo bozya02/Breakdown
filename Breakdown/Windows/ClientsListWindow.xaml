@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Breakdown.Windows"
         mc:Ignorable="d"
         FontFamily="Tw Cen MT"
-        Title="Поломка" Height="450" Width="800">
+        Title="Поломка"
+        Height="450" Width="800"
+        MinHeight="450" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -52,27 +54,44 @@
         </Grid>
 
         <ListView x:Name="lvClients" Grid.Row="1" ItemsSource="{Binding Clients}"
-                  VerticalContentAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch" FontSize="16"
                   MouseDoubleClick="lvClients_MouseDoubleClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Image Width="80" Height="60">
-                            <Image.Source>
-                                <Binding Path="Photo">
-                                    <Binding.TargetNullValue>
-                                        <ImageSource>/Resources/default_photo.png</ImageSource>
-                                    </Binding.TargetNullValue>
-                                </Binding>
-                            </Image.Source>
-                        </Image>
-                    </Grid>
+                            <Image Width="80" Height="60">
+                                <Image.Source>
+                                    <Binding Path="Photo">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>/Resources/default_photo.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock>
+                                    <Run Text="{Binding LastName}"/>
+                                    <Run Text="{Binding FirstName}"/>
+                                    <Run Text="{Binding Patronymic}"/>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Birthday, ConverterCulture=ru, StringFormat=d}"/>
+                                <TextBlock Text="Контакты: ">
+                                    <Run Text="{Binding Email}"/>
+                                    <Run Text=", "/>
+                                    <Run Text="{Binding Phone}"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBlock Grid.Column="2" Text="{Binding Gender.Name}" Margin="5"/>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

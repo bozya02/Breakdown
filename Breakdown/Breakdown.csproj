@@ -128,7 +128,14 @@
     <Compile Include="Windows\ClientsListWindow.xaml.cs">
       <DependentUpon>ClientsListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ClientWindow.xaml.cs">
+      <DependentUpon>ClientWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Windows\ClientsListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
