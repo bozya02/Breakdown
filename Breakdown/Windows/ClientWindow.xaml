@@ -5,10 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Breakdown.Windows"
         mc:Ignorable="d"
+        FontFamily="Tw Cen MT"
         Title="Поломка"
         Height="450" Width="800"
         MinHeight="450" MinWidth="800">
+    <Window.Resources>
+        <Style TargetType="StackPanel">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5 0"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <Label Content="Фамилия"/>
+            <TextBox Text="{Binding Client.LastName}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Label Content="Имя"/>
+            <TextBox Text="{Binding Client.FirstName}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2">
+            <Label Content="Отчество"/>
+            <TextBox Text="{Binding Client.Patronymic}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3">
+            <Label Content="Email"/>
+            <TextBox Text="{Binding Client.Email}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4">
+            <Label Content="Телефон"/>
+            <TextBox Text="{Binding Client.Phone}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5">
+            <Label Content="Пол"/>
+            <ComboBox x:Name="cbGender" ItemsSource="{Binding Genders}"
+                      SelectedItem="{Binding Client.Gender}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0">
+            <Label Content="Дата рождения"/>
+            <DatePicker SelectedDate="{Binding Client.Birthday}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="0">
+            <Label Content="Дата регистрации"/>
+            <DatePicker SelectedDate="{Binding Client.RegistrationDate}"
+                        IsEnabled="False"/>
+        </StackPanel>
+
+        <ListView x:Name="lvServices" ItemsSource="{Binding Client.ClientServices}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="{Binding Service.Title}"/>
+                        <DatePicker SelectedDate="{Binding StartTime}"/>
+                        <TextBox Text="{Binding Comment}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Column="1" Grid.Row="5">
+            <Label Content="Сервисы"/>
+            <ComboBox x:Name="cbService" ItemsSource="{Binding Services}" DisplayMemberPath="Title" SelectionChanged="cbServices_SelectionChanged"/>
+        </StackPanel>
+
+        <Image x:Name="imgPhoto" Source="{Binding Client.Photo}" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4"/>
+        <Button x:Name="btnImage" Content="Выбрать фото" Grid.Column="2" Grid.Row="5"
+                VerticalAlignment="Center" Margin="20 0" Click="btnImage_Click"/>
+
+        <Button x:Name="btnDelete" Content="Удалить" Margin="20 0"
+                Grid.Row="6" Click="btnDelete_Click" Visibility="Visible"/>
+
+        <Button x:Name="btnSave" Content="Сохранить" Grid.Row="6"
+                Margin="20 0" Grid.Column="1" Click="btnSave_Click"/>
     </Grid>
 </Window>

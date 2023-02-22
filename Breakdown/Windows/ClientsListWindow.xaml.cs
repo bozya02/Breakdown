@@ -145,5 +145,10 @@ namespace Breakdown.Windows
             if (spPages.Children.Count != 0)
                 (spPages.Children[_page] as TextBlock).TextDecorations = TextDecorations.Underline;
         }
+
+        private void btnNewClient_Click(object sender, RoutedEventArgs e)
+        {
+            new ClientWindow(new Client(), true).ShowDialog();
+        }
     }
 }

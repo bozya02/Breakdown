@@ -104,7 +104,7 @@
             </Grid.ColumnDefinitions>
 
             <Button x:Name="btnNewClient" Content="Новый клиент" Grid.ColumnSpan="3"
-                HorizontalAlignment="Center"/>
+                HorizontalAlignment="Center" Click="btnNewClient_Click"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
                 <TextBlock Text="&lt;" PreviewMouseDown="Paginator" Style="{DynamicResource Paginator}"/>
